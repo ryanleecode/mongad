@@ -14,12 +14,12 @@ import { applyToCollection } from './shared'
 import { flow } from 'fp-ts/lib/function'
 
 // TODO: Type Collections with Generic. However, this might cause errors through falsy type inference
-const insertO = <T extends OptionalId<{}>>(
+const insertO = <K, T extends OptionalId<K>>(
   document: T,
   options?: CollectionInsertOneOptions
 ) => (collection: Collection<T>) =>
   collection.insertOne(document as OptionalId<T>, options)
-const insertM = <T extends OptionalId<{}>>(
+const insertM = <K, T extends OptionalId<K>>(
   documents: T[],
   options?: CollectionInsertManyOptions
 ) => (collection: Collection<T>) =>
@@ -30,7 +30,7 @@ const insertM = <T extends OptionalId<{}>>(
  * @param collection
  * @param document
  */
-export function insertOne<T extends OptionalId<{}>>(
+export function insertOne<K extends {}, T extends OptionalId<K>>(
   collection: string,
   document: T,
   options?: CollectionInsertOneOptions
@@ -46,7 +46,7 @@ export function insertOne<T extends OptionalId<{}>>(
  * @param collection
  * @param documents
  */
-export function insertMany<T extends OptionalId<{}>>(
+export function insertMany<K extends {}, T extends OptionalId<K>>(
   collection: string,
   documents: T[],
   options?: CollectionInsertManyOptions
